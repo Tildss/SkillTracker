@@ -1,5 +1,7 @@
 "use client";
 
+import Button from "./component/Button";
+
 // import { useRouter } from "next/navigation";
 
 // export default function Home() {
@@ -11,3 +13,6 @@
 //     </button>
 //   );
 // }
+export default function Home() {
+  return <Button>oui</Button>;
+}
