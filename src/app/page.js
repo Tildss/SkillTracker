@@ -1,5 +1,7 @@
 "use client";
 
+import { useRouter } from "next/navigation";
+
 import Button from "./component/Button";
 
 // import { useRouter } from "next/navigation";
@@ -14,5 +16,11 @@ import Button from "./component/Button";
 //   );
 // }
 export default function Home() {
-  return <Button>oui</Button>;
+  const router = useRouter();
+
+  return (
+    <button onClick={() => router.push("/dashboard")}>
+      Click here to read more
+    </button>
+  );
 }

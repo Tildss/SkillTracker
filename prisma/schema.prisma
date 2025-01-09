@@ -1,0 +1,64 @@
+generator client {
+  provider = "prisma-client-js"
+}
+
+datasource db {
+  provider = "sqlite"
+  url      = "file:./dev.db"
+}
+
+model User {
+  id        Int       @id @default(autoincrement())
+  name      String
+  email     String    @unique
+  createdAt DateTime  @default(now())
+  updatedAt DateTime  @updatedAt
+
+  skillLevels SkillLevel[]
+  projects    Project[]
+}
+
+model Skill {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  categoryId  Int?
+  category    Category? @relation(fields: [categoryId], references: [id])
+  skillLevels SkillLevel[]
+
+  projects    Project[] @relation("ProjectSkills") // Relation réciproque ajoutée ici
+}
+
+model SkillLevel {
+  id        Int      @id @default(autoincrement())
+  userId    Int
+  skillId   Int
+  level     Int      // Par exemple : 1 = Débutant, 2 = Intermédiaire, 3 = Expert
+  progress  Float?   // Progression sur la compétence (ex: 75.5%)
+  
+  user      User     @relation(fields: [userId], references: [id])
+  skill     Skill    @relation(fields: [skillId], references: [id])
+
+  createdAt DateTime @default(now())
+  updatedAt DateTime @updatedAt
+
+  @@unique([userId, skillId]) // Un utilisateur ne peut avoir qu'un lien unique avec une compétence
+}
+
+model Project {
+  id          Int       @id @default(autoincrement())
+  name        String
+  description String?
+  userId      Int
+  user        User      @relation(fields: [userId], references: [id])
+  skills      Skill[]   @relation("ProjectSkills") // Relation définie ici
+
+  createdAt   DateTime  @default(now())
+  updatedAt   DateTime  @updatedAt
+}
+
+model Category {
+  id    Int    @id @default(autoincrement())
+  name  String
+  skills Skill[]
+}
