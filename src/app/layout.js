@@ -23,7 +23,7 @@ export default function RootLayout({ children }) {
       <body
         className={`${geistSans.variable} ${geistMono.variable} antialiased`}
       >
-        <header>
+        <header style={{ textAlign: "center" }}>
           <h1>SkillTracker</h1>
         </header>
         {children}

@@ -2,6 +2,7 @@
 import { FormEvent } from "react";
 import { useRouter } from "next/navigation";
 
+
 export default function LoginPage() {
   const router = useRouter();
 
@@ -31,5 +32,6 @@ export default function LoginPage() {
       <input type="password" name="password" placeholder="Password" required />
       <button type="submit">Login</button>
     </form>
+
   );
 }
